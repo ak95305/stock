@@ -2,6 +2,14 @@
 
 use Illuminate\Http\Request;
 
+function pr($data)
+{
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+}
+
+
 define('LARAVEL_START', microtime(true));
 
 // Determine if the application is in maintenance mode...

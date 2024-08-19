@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+tr, td {
+    white-space: nowrap;
+}
+
+/* Header */
+header{
+    text-align: center;
+    padding: 20px;
+    color: #000;
+}
+
+header h1{
+    color: #000;
+}
+
+
+/* Filters */
+.filters_form{
+    display: none;
+}
+#filter_checkbox:checked ~ .filters_form{
+    display: block;
+}
