@@ -2,43 +2,35 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lot;
 use App\Models\Party;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class LotController extends Controller {
+class PartyController extends Controller {
     public function index(Request $request) 
     {
         $where = [];
+
         if($request->get("search"))
         {
             $search = $request->get("search");
 
-            $partyIds = Party::whereLike("first_name", "%$search%")->orWhereLike("company_name", "%$search%")->pluck("id");
-            $partyIds = !empty($partyIds) && count($partyIds) > 0 ? implode(", ", $partyIds->toArray()) : "0";
-
-            $where[] = "lots.lot_no LIKE '%$search%' OR lots.party_id IN ($partyIds)";
+            $where[] = "parties.first_name LIKE '%$search%' OR parties.last_name LIKE '%$search%' OR parties.company_name LIKE '%$search%'";
         }
         
         if($request->get("from_date"))
         {
-            $where[] = "lots.date >= '".$request->get("from_date")."'";
+            $where[] = "parties.created_at >= '".$request->get("from_date")."'";
         }
         
         if($request->get("to_date"))
         {
-            $where[] = "lots.date <= '".$request->get("to_date")."'";
+            $where[] = "parties.created_at <= '".$request->get("to_date")."'";
         }
         
-        if($request->get("party"))
-        {
-            $where[] = "lots.party_id = '".$request->get("party")."'";
-        }
-        
-        $listing = Lot::getListing($request, $where);
+        $listing = Party::getListing($request, $where);
 
-        return view("lot.index", ['listing' => $listing]);
+        return view("party.index", ['listing' => $listing]);
     }
 
     public function add(Request $request)
@@ -50,25 +42,19 @@ class LotController extends Controller {
             $validator = Validator::make(
                 $data,
                 [
-                    "lot_no" => "required",
-                    "party_id" => "required"
+                    "first_name" => "required",
                 ]
             );
             if(!$validator->fails())
             {
                 unset($data['_token']);
-
-                if(!isset($data['date']) || !$data['date'])
-                {
-                    $data['date'] = date("Y-m-d H:i:s");
-                }
                 
-                $lot = Lot::create($data);
+                $record = Party::create($data);
 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot saved Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Party saved Successfully.');
+                    return redirect()->route("party.index");
                 }
                 else
                 {
@@ -83,7 +69,7 @@ class LotController extends Controller {
             }
         }
 
-        return view("lot.add");
+        return view("party.add");
     }
     
     public function edit(Request $request, $id)
@@ -95,25 +81,19 @@ class LotController extends Controller {
             $validator = Validator::make(
                 $data,
                 [
-                    "lot_no" => "required",
-                    "party_id" => "required"
+                    "first_name" => "required"
                 ]
             );
             if(!$validator->fails())
             {
                 unset($data['_token']);
-
-                if(!isset($data['date']) || !$data['date'])
-                {
-                    $data['date'] = date("Y-m-d");
-                }
                 
-                $lot = Lot::modify($id, $data);
+                $record = Party::modify($id, $data);
 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot updated Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Party updated Successfully.');
+                    return redirect()->route("party.index");
                 }
                 else
                 {
@@ -128,11 +108,11 @@ class LotController extends Controller {
             }
         }        
 
-        $lot = Lot::get($id);
+        $record = Party::get($id);
 
-        if($lot)
+        if($record)
         {
-            return view("lot.edit", ["record" => $lot]);
+            return view("party.edit", ["record" => $record]);
         }
         else
         {
@@ -142,26 +122,26 @@ class LotController extends Controller {
 
     public function statusChange(Request $request, $id)
     {
-        $lot = Lot::get($id);
+        $record = Party::get($id);
 
-        if($lot)
+        if($record)
         {
             if($request->isMethod("post"))
             {
                 $data = $request->all();
                 unset($data['_token']);
 
-                $lot = Lot::modify($id, $data);
+                $record = Party::modify($id, $data);
                 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot updated Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Party updated Successfully.');
+                    return redirect()->route("party.index");
                 }
                 else
                 {
                     $request->session()->flash('success', 'Something Wrong. Please try again.');
-                    return redirect()->route("lot.index");
+                    return redirect()->route("party.index");
                 }
             }
         }
@@ -169,26 +149,26 @@ class LotController extends Controller {
 
     public function delete(Request $request, $id)
     {
-        $lot = Lot::get($id);
+        $record = Party::get($id);
 
-        if($lot)
+        if($record)
         {
             if($request->isMethod("post"))
             {
                 $data = $request->all();
                 unset($data['_token']);
 
-                $lot = Lot::remove($id);
+                $record = Party::remove($id);
                 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot deleted Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Partt deleted Successfully.');
+                    return redirect()->route("party.index");
                 }
                 else
                 {
                     $request->session()->flash('success', 'Something Wrong. Please try again.');
-                    return redirect()->route("lot.index");
+                    return redirect()->route("party.index");
                 }
             }
         }

@@ -3,23 +3,23 @@
 @section('content')
 
     <section class="lot_add_form px-3 old_form">
-        <h2 class="text-center">Edit Lot</h2>
+        <h2 class="text-center">Add Party</h2>
         
         <div class="flash_messages">
             @include("partials.flash_messages")
         </div>
 
-        <form action={{ route("lot.edit", ["id" => $record->id]) }} method="POST" class="mt-3">
+        <form action={{ route("party.add") }} method="POST" class="mt-3">
             @csrf()
             <div class="form_group mb-2">
                 <div class="row">
                     <div class="col-4">
-                        <label class="w-100 text-end" for="lot_no">Lot No.</label>
+                        <label class="w-100 text-end" for="first_name">First Name</label>
                     </div>
                     <div class="col-8">
-                        <input class="w-100" type="text" name="lot_no" id="lot_no" value="{{ old("lot_no", @$record->lot_no) }}">
+                        <input class="w-100" type="text" name="first_name" id="first_name" value="{{ old("first_name") }}">
                         <span class="text-danger">
-                            @error('lot_no')
+                            @error('first_name')
                                 {{ $message }}
                             @enderror
                         </span>
@@ -29,15 +29,12 @@
             <div class="form_group mb-2">
                 <div class="row">
                     <div class="col-4">
-                        <label class="w-100 text-end" for="party_id">Party</label>
+                        <label class="w-100 text-end" for="last_name">Last Name</label>
                     </div>
                     <div class="col-8">
-                        <select class="w-100" name="party_id" id="party_id">
-                            <option value="">Select</option>
-                            <option value="1" {{ old("party_id", @$record->party_id) == 1 ? "selected" : "" }} >1</option>
-                        </select>
+                        <input class="w-100" type="text" name="last_name" id="last_name" value="{{ old("last_name") }}">
                         <span class="text-danger">
-                            @error('party_id')
+                            @error('last_name')
                                 {{ $message }}
                             @enderror
                         </span>
@@ -47,26 +44,36 @@
             <div class="form_group mb-2">
                 <div class="row">
                     <div class="col-4">
-                        <label class="w-100 text-end" for="rate">Rate</label>
+                        <label class="w-100 text-end" for="company_name">Company Name</label>
                     </div>
                     <div class="col-8">
-                        <input class="w-100" type="number" name="rate" id="rate" value="{{ old("rate", $record->rate) }}>
-  "                  </div>
+                        <input class="w-100" type="text" name="company_name" id="company_name" value="{{ old("company_name") }}">
+                        <span class="text-danger">
+                            @error('company_name')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="form_group mb-2">
                 <div class="row">
                     <div class="col-4">
-                        <label class="w-100 text-end" for="date">Date</label>
+                        <label class="w-100 text-end" for="phone_number">Phone Number</label>
                     </div>
                     <div class="col-8">
-                        <input class="w-100" type="date" name="date" id="date" value="{{ old("date", $record->date) }}>
-  "                  </div>
+                        <input class="w-100" type="text" name="phone_number" id="phone_number" value="{{ old("phone_number") }}">
+                        <span class="text-danger">
+                            @error('phone_number')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
                 </div>
             </div>
 
             <div class="mt-4 text-end">
-                <a href={{ route("lot.index") }} class="btn btn-success btn-sm">Go to Listing</a>
+                <a href={{ route("party.index") }} class="btn btn-success btn-sm">Go to Listing</a>
                 <button type="submit" class="btn btn-primary btn-sm">Submit</button>
             </div>
         </form>

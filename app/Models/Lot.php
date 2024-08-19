@@ -48,6 +48,8 @@ class Lot extends Model
             }
         }
 
+        $listing->with(['party']);
+
         if ($page !== null && $page !== "" && $limit !== null && $limit !== "") {
             $listing->offset($offset);
             $listing->limit($limit);
