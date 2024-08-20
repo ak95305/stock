@@ -15,7 +15,7 @@ class PartyController extends Controller {
         {
             $search = $request->get("search");
 
-            $where[] = "parties.first_name LIKE '%$search%' OR parties.last_name LIKE '%$search%' OR parties.company_name LIKE '%$search%'";
+            $where[] = "(parties.first_name LIKE '%$search%' OR parties.last_name LIKE '%$search%' OR parties.company_name LIKE '%$search%')";
         }
         
         if($request->get("from_date"))
@@ -162,7 +162,7 @@ class PartyController extends Controller {
                 
                 if($record)
                 {
-                    $request->session()->flash('success', 'Partt deleted Successfully.');
+                    $request->session()->flash('success', 'Party deleted Successfully.');
                     return redirect()->route("party.index");
                 }
                 else

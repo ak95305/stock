@@ -4,6 +4,7 @@
 
     <div class="filters px-3 mb-2">
         <h2 class="text-center">Lots</h2>
+        @include("partials.flash_messages")
         
         @include("lot.filter")
     </div>
@@ -47,7 +48,7 @@
                                 <a href={{ route("lot.edit", ["id" => @$value->id]) }} class="btn btn-success btn-sm"><small>EDIT</small></a>
                                 <form action={{ route("lot.delete", ["id" => @$value->id]) }} method="post">
                                     @csrf
-                                    <button class="btn btn-danger btn-sm" type="submit" onclick="confirm('Do you want to delete this record?')"><small>DEL</small></button>
+                                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Do you want to delete this record?')"><small>DEL</small></button>
                                 </form>
                             </td>
                         </tr>

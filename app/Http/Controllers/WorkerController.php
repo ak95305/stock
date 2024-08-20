@@ -2,43 +2,42 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Lot;
-use App\Models\Party;
+use App\Models\Worker;
+use App\Models\WorkerType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class LotController extends Controller {
+class WorkerController extends Controller {
     public function index(Request $request) 
     {
         $where = [];
+
         if($request->get("search"))
         {
             $search = $request->get("search");
 
-            $partyIds = Party::whereLike("first_name", "%$search%")->orWhereLike("company_name", "%$search%")->pluck("id");
-            $partyIds = !empty($partyIds) && count($partyIds) > 0 ? implode(", ", $partyIds->toArray()) : "0";
-
-            $where[] = "(lots.lot_no LIKE '%$search%' OR lots.party_id IN ($partyIds))";
+            $where[] = "(workers.first_name LIKE '%$search%' OR workers.last_name LIKE '%$search%')";
         }
         
         if($request->get("from_date"))
         {
-            $where[] = "lots.date >= '".$request->get("from_date")."'";
+            $where[] = "workers.created_at >= '".$request->get("from_date")."'";
         }
         
         if($request->get("to_date"))
         {
-            $where[] = "lots.date <= '".$request->get("to_date")."'";
+            $where[] = "workers.created_at <= '".$request->get("to_date")."'";
         }
         
-        if($request->get("party"))
+        if($request->get("worker_type_id"))
         {
-            $where[] = "lots.party_id = '".$request->get("party")."'";
+            $where["worker_type_id = ?"] = [$request->get("worker_type_id")];
         }
         
-        $listing = Lot::getListing($request, $where);
+        $listing = Worker::getListing($request, $where);
 
-        return view("lot.index", ['listing' => $listing]);
+        $workerTypes = WorkerType::where("status", 1)->get();
+        return view("worker.index", ['listing' => $listing, "workerTypes" => $workerTypes]);
     }
 
     public function add(Request $request)
@@ -50,25 +49,20 @@ class LotController extends Controller {
             $validator = Validator::make(
                 $data,
                 [
-                    "lot_no" => "required",
-                    "party_id" => "required"
+                    "first_name" => "required",
+                    "worker_type_id" => "required",
                 ]
             );
             if(!$validator->fails())
             {
                 unset($data['_token']);
-
-                if(!isset($data['date']) || !$data['date'])
-                {
-                    $data['date'] = date("Y-m-d H:i:s");
-                }
                 
-                $lot = Lot::create($data);
+                $record = Worker::create($data);
 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot saved Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Worker saved Successfully.');
+                    return redirect()->route("worker.index");
                 }
                 else
                 {
@@ -83,8 +77,8 @@ class LotController extends Controller {
             }
         }
 
-        $parties = Party::where("status", 1)->get();
-        return view("lot.add", ["parties" => $parties]);
+        $workerTypes = WorkerType::where("status", 1)->get();
+        return view("worker.add", ["workerTypes" => $workerTypes]);
     }
     
     public function edit(Request $request, $id)
@@ -96,25 +90,20 @@ class LotController extends Controller {
             $validator = Validator::make(
                 $data,
                 [
-                    "lot_no" => "required",
-                    "party_id" => "required"
+                    "first_name" => "required",
+                    "worker_type_id" => "required"
                 ]
             );
             if(!$validator->fails())
             {
                 unset($data['_token']);
-
-                if(!isset($data['date']) || !$data['date'])
-                {
-                    $data['date'] = date("Y-m-d");
-                }
                 
-                $lot = Lot::modify($id, $data);
+                $record = Worker::modify($id, $data);
 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot updated Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Worker updated Successfully.');
+                    return redirect()->route("worker.index");
                 }
                 else
                 {
@@ -127,14 +116,14 @@ class LotController extends Controller {
                 $request->session()->flash('error', 'Please provide valid inputs.');
                 return redirect()->back()->withErrors($validator)->withInput();
             }
-        }    
+        }        
 
-        $lot = Lot::get($id);
+        $record = Worker::get($id);
 
-        if($lot)
+        if($record)
         {
-            $parties = Party::where("status", 1)->get();
-            return view("lot.edit", ["record" => $lot, "parties" => $parties]);
+            $workerTypes = WorkerType::where("status", 1)->get();
+            return view("worker.edit", ["record" => $record, "workerTypes" => $workerTypes]);
         }
         else
         {
@@ -144,26 +133,26 @@ class LotController extends Controller {
 
     public function statusChange(Request $request, $id)
     {
-        $lot = Lot::get($id);
+        $record = Worker::get($id);
 
-        if($lot)
+        if($record)
         {
             if($request->isMethod("post"))
             {
                 $data = $request->all();
                 unset($data['_token']);
 
-                $lot = Lot::modify($id, $data);
+                $record = Worker::modify($id, $data);
                 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot updated Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Worker updated Successfully.');
+                    return redirect()->route("worker.index");
                 }
                 else
                 {
                     $request->session()->flash('success', 'Something Wrong. Please try again.');
-                    return redirect()->route("lot.index");
+                    return redirect()->route("worker.index");
                 }
             }
         }
@@ -171,28 +160,32 @@ class LotController extends Controller {
 
     public function delete(Request $request, $id)
     {
-        $lot = Lot::get($id);
+        $record = Worker::get($id);
 
-        if($lot)
+        if($record)
         {
             if($request->isMethod("post"))
             {
                 $data = $request->all();
                 unset($data['_token']);
 
-                $lot = Lot::remove($id);
+                $record = Worker::remove($id);
                 
-                if($lot)
+                if($record)
                 {
-                    $request->session()->flash('success', 'Lot deleted Successfully.');
-                    return redirect()->route("lot.index");
+                    $request->session()->flash('success', 'Worker deleted Successfully.');
+                    return redirect()->route("worker.index");
                 }
                 else
                 {
                     $request->session()->flash('success', 'Something Wrong. Please try again.');
-                    return redirect()->route("lot.index");
+                    return redirect()->route("worker.index");
                 }
             }
+        }
+        else
+        {
+            return redirect()->route("worker.index");
         }
     }
 }

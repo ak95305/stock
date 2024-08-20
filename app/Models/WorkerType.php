@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
-class Party extends Model
+class WorkerType extends Model
 {
     use SoftDeletes;
 
     public static function create($data)
     {
-        $record = new Party();
+        $record = new WorkerType();
 
         foreach ($data as $k => $v) {
             $record->{$k} = $v;
@@ -23,13 +23,13 @@ class Party extends Model
 
     public static function getListing(Request $request, $where = [])
     {
-        $orderBy = $request->get('sort') ? $request->get('sort') : 'parties.id';
+        $orderBy = $request->get('sort') ? $request->get('sort') : 'worker_types.id';
         $direction = $request->get('direction') ? $request->get('direction') : 'desc';
         $page = $request->get('page') ? $request->get('page') : 1;
         $limit = $request->get('limit') ? $request->get('limit') : 12;
         $offset = ($page - 1) * $limit;
 
-        $listing = Party::orderBy($orderBy, $direction);
+        $listing = WorkerType::orderBy($orderBy, $direction);
 
         if (!empty($where))
         {
@@ -55,21 +55,21 @@ class Party extends Model
 
     public static function get($id)
     {
-        $record = Party::find($id);
+        $record = WorkerType::find($id);
 
         return $record;
     }
 
     public static function remove($id)
     {
-        $record = Party::find($id);
+        $record = WorkerType::find($id);
 
         return $record ? $record->delete() : false;
     }
 
     public static function modify($id, $data)
     {
-        $record = Party::find($id);
+        $record = WorkerType::find($id);
 
         if($record)
         {

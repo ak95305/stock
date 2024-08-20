@@ -34,7 +34,9 @@
                     <div class="col-8">
                         <select class="w-100" name="party_id" id="party_id">
                             <option value="">Select</option>
-                            <option value="1" {{ old("party_id", @$record->party_id) == 1 ? "selected" : "" }} >1</option>
+                            @foreach ($parties as $party)
+                                <option value="{{ $party["id"] }}" {{ old("party_id", @$record->party_id) == $party["id"] ? "selected" : "" }} >{{ $party["first_name"] . " " . @$party["last_name"] }} {{ $party['company_name'] ? "(".@$party['company_name'].")" : "" }}</option>
+                            @endforeach
                         </select>
                         <span class="text-danger">
                             @error('party_id')
@@ -47,11 +49,31 @@
             <div class="form_group mb-2">
                 <div class="row">
                     <div class="col-4">
+                        <label class="w-100 text-end" for="pcs">Pcs.</label>
+                    </div>
+                    <div class="col-8">
+                        <input class="w-100" type="number" name="pcs" id="pcs" value="{{ old("pcs", $record->pcs) }}">
+                    </div>
+                </div>
+            </div>
+            <div class="form_group mb-2">
+                <div class="row">
+                    <div class="col-4">
                         <label class="w-100 text-end" for="rate">Rate</label>
                     </div>
                     <div class="col-8">
-                        <input class="w-100" type="number" name="rate" id="rate" value="{{ old("rate", $record->rate) }}>
-  "                  </div>
+                        <input class="w-100" type="number" name="rate" id="rate" value="{{ old("rate", $record->rate) }}">
+                    </div>
+                </div>
+            </div>
+            <div class="form_group mb-2">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="w-100 text-end" for="info">Additional Info</label>
+                    </div>
+                    <div class="col-8">
+                        <textarea class="w-100" name="info" id="info" value="">{{ old("info", $record->info) }}</textarea>
+                    </div>
                 </div>
             </div>
             <div class="form_group mb-2">
@@ -60,8 +82,8 @@
                         <label class="w-100 text-end" for="date">Date</label>
                     </div>
                     <div class="col-8">
-                        <input class="w-100" type="date" name="date" id="date" value="{{ old("date", $record->date) }}>
-  "                  </div>
+                        <input class="w-100" type="date" name="date" id="date" value="{{ old("date", $record->date) }}">
+                    </div>
                 </div>
             </div>
 
