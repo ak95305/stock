@@ -7,7 +7,8 @@ use App\Models\Party;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class LotController extends Controller {
+class LotController extends Controller 
+{
     public function index(Request $request) 
     {
         $where = [];

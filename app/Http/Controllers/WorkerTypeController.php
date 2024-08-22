@@ -6,7 +6,8 @@ use App\Models\WorkerType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class WorkerTypeController extends Controller {
+class WorkerTypeController extends Controller 
+{
     public function index(Request $request) 
     {
         $where = [];

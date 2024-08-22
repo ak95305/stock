@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 class Worker extends Model
 {
     use SoftDeletes;
+    protected $hidden = ["pivot"];
 
     public function workerType() 
     {
         return $this->belongsTo(WorkerType::class);
+    }
+    
+    public function lot()
+    {
+        return $this->belongsToMany(Lot::class);
     }
 
     public static function create($data)
@@ -56,6 +62,46 @@ class Worker extends Model
         }
 
         $listing = $listing->paginate($limit);
+
+        return $listing;
+    }
+
+    public static function getAll($select = [], $where = [], $limit = null, $orderBy = "workers.id desc")
+    {
+        $listing = Worker::orderByRaw($orderBy);
+
+        if(!empty($select))
+        {
+            $listing->select($select);
+        }
+        else
+        {
+            $listing->select([
+                'workers.*'
+            ]); 
+        }
+
+        if(!empty($where))
+        {
+            foreach($where as $query => $values)
+            {
+                if(is_array($values))
+                    $listing->whereRaw($query, $values);
+                elseif(!is_numeric($query))
+                    $listing->where($query, $values);
+                else
+                    $listing->whereRaw($values);
+            }
+        }
+
+        $listing->with(['workerType']);
+        
+        if($limit !== null && $limit !== "")
+        {
+            $listing->limit($limit);
+        }
+
+        $listing = $listing->get();
 
         return $listing;
     }

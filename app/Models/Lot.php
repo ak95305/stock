@@ -9,10 +9,16 @@ use Illuminate\Http\Request;
 class Lot extends Model
 {
     use SoftDeletes;
+    protected $hidden = ["pivot"];
 
     public function party()
     {
         return $this->belongsTo(Party::class);
+    }
+
+    public function worker()
+    {
+        return $this->belongsToMany(Worker::class, "lot_workers");
     }
 
     public static function create($data)

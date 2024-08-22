@@ -8,3 +8,4 @@ include "stock/lot.php";
 include "stock/party.php";
 include "stock/worker_type.php";
 include "stock/worker.php";
+include "stock/assign_lot.php";
