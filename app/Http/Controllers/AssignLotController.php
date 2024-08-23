@@ -61,8 +61,11 @@ class AssignLotController extends Controller
 
     public function getLotAssignInfo(Request $request, $id)
     {
-        $data = Lot::where(["id" => $id])->with(['worker'])->get();
-        pr($data->toArray());die;
+        $data = Lot::where(["id" => $id])
+        ->with(['worker' => function($query){
+            $query->select(["workers.first_name", "workers.last_name", "lot_workers.assign_pcs"]);
+        }])
+        ->first();
 
         return response()->json([
             "status" => true,

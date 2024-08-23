@@ -28,7 +28,7 @@
                                 {{ $message }}
                             @enderror
                         </span>
-                        <div class="lot_data d-none" id="lot_data">
+                        <div class="lot_data" id="lot_data" style="display: none">
                             <table class="table">
                                 <tr>
                                     <th>#</th>
