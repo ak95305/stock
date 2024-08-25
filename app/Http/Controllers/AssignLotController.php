@@ -43,7 +43,7 @@ class AssignLotController extends Controller
                     Lot::modify($data['lot_id'], ["tailor_status" => 2]);
 
                     $request->session()->flash('success', 'Lot Assigned Successfully.');
-                    return redirect()->route("worker.index");
+                    return redirect()->route("lot.index");
                 }
                 else
                 {
@@ -110,7 +110,7 @@ class AssignLotController extends Controller
                 }          
 
                 $request->session()->flash('success', 'Lot Assigned Updated Successfully.');
-                return redirect()->route("worker.index");
+                return redirect()->route("lot.index");
             }
             else
             {
