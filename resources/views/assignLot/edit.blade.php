@@ -30,7 +30,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="lot_data py-5" id="lot_data" data-lot-data="{{ $assignLotInfo }}">
+                <div class="lot_data table-responsive py-5" id="lot_data" data-lot-data="{{ $assignLotInfo }}">
                     <table class="table">
                         <tr>
                             <th>Date</th>
