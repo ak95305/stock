@@ -33,11 +33,11 @@
                 <div class="lot_data table-responsive py-5" id="lot_data" data-lot-data="{{ $assignLotInfo }}">
                     <table class="table">
                         <tr>
-                            <th>Date</th>
-                            <th>Tailor</th>
-                            <th>rate</th>
-                            <th>Pcs</th>
-                            <th>Action</th>
+                            <th style="min-width: 100px">Date</th>
+                            <th style="min-width: 100px">Tailor</th>
+                            <th style="min-width: 100px">rate</th>
+                            <th style="min-width: 100px">Pcs</th>
+                            <th style="min-width: 100px">Action</th>
                         </tr>
                         @foreach ($assignLotInfo->worker as $key => $value)
                             <tr>
