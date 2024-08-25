@@ -30,11 +30,16 @@
                         </span>
                         <div class="lot_data" id="lot_data" style="display: none">
                             <table class="table">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Tailor</th>
-                                    <th>Pcs</th>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Tailor</th>
+                                        <th>Pcs</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -69,7 +74,7 @@
                         <input class="w-100" type="text" name="rate" id="rate" value="{{ old("rate") }}">
                         <span class="text-danger">
                             @error('rate')
-                                {{ $message }}
+                            {{ $message }}
                             @enderror
                         </span>
                     </div>
@@ -82,6 +87,7 @@
                     </div>
                     <div class="col-8">
                         <input class="w-100" type="text" name="assign_pcs" id="assign_pcs" value="{{ old("assign_pcs") }}">
+                        <div class="btn btn-sm btn-primary mt-1 add_all_btn disabled" role="button">Add All</div>
                         <span class="text-danger">
                             @error('assign_pcs')
                                 {{ $message }}

@@ -47,4 +47,29 @@ class LotWorker extends Model
 
         return $record;
     }
+    
+    public static function remove($id)
+    {
+        $record = LotWorker::find($id);
+
+        return $record ? $record->delete() : false;
+    }
+    
+    public static function modify($id, $data)
+    {
+        $record = LotWorker::find($id);
+
+        if($record)
+        {
+            foreach($data as $k => $v)
+            {
+                $record->{$k} = $v;
+            }
+            return $record->save();
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
