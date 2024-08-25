@@ -56,6 +56,21 @@
                     </div>
                 </div>
             </div>
+            <div class="form_group mb-2">
+                <div class="row">
+                    <div class="col-4">
+                        <label class="w-100 text-end" for="phone_number">Phone Number</label>
+                    </div>
+                    <div class="col-8">
+                        <input class="w-100" type="text" name="phone_number" id="phone_number" value="{{ old("phone_number", @$record->phone_number) }}">
+                        <span class="text-danger">
+                            @error('phone_number')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+                </div>
+            </div>
 
             <div class="mt-4 text-end">
                 <a href={{ route("party.index") }} class="btn btn-success btn-sm">Go to Listing</a>
