@@ -36,11 +36,13 @@
                                 </form>
                             </td>
                             <td>
-                                <a href={{ route("workerType.edit", ["id" => @$value->id]) }} class="btn btn-success btn-sm"><small>EDIT</small></a>
-                                <form action={{ route("workerType.delete", ["id" => @$value->id]) }} method="post">
-                                    @csrf
-                                    <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Do you want to delete this record?')"><small>DEL</small></button>
-                                </form>
+                                <div class="d-flex gap-1">
+                                    <a href={{ route("workerType.edit", ["id" => @$value->id]) }} class="btn btn-success btn-sm"><small>EDIT</small></a>
+                                    <form action={{ route("workerType.delete", ["id" => @$value->id]) }} method="post">
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm" type="submit" onclick="return confirm('Do you want to delete this record?')"><small>DEL</small></button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @empty
