@@ -62,7 +62,7 @@
                         <label class="w-100 text-end" for="rate">Rate</label>
                     </div>
                     <div class="col-8">
-                        <input class="w-100" type="number" name="rate" id="rate" value="{{ old("rate", $record->rate) }}">
+                        <input class="w-100" type="text" name="rate" id="rate" value="{{ old("rate", $record->rate) }}">
                     </div>
                 </div>
             </div>
