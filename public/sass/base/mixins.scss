@@ -1,0 +1,17 @@
+@import "./variables.scss";
+
+@mixin borderPrimary {
+    border: 1px solid $colorPrimary;
+    border-radius: 20px;
+}
+
+@mixin buttonPrimary {
+    border: 1px solid $colorPrimary;
+    border-radius: 15px;
+    width: 100%;
+    padding: 10px 20px;
+    color: $colorPrimary;
+    font-weight: 600;
+    font-size: 20px;
+    font-family: "Inter";
+}

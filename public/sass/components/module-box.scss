@@ -1,0 +1,49 @@
+.module_box{
+    margin-bottom: 15px;
+    border-radius: 20px;
+    min-height: 50px;
+    display: flex;
+    justify-content: flex-start;
+    overflow: hidden;
+
+    .module_img{
+        width: 100%;
+        max-width: 80px;
+        background-color: $cardLighBlue;
+        display: grid;
+        place-items: center;
+    }
+
+    .module_content{
+        background-color: $cardLightBg;
+        flex-grow: 1;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px 10px;
+
+        .content_text{
+            .text_heading{
+                font-size: 15px;
+                font-weight: 600;
+                color: #000;
+                margin-bottom: 8px;
+            }
+
+            .text_desc{
+                font-size: 12px;
+                font-weight: 400;
+                color: #999;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;  
+                overflow: hidden;
+            }
+        }
+
+        .content_arrow{
+            min-width: 30px;
+            display: grid;
+            place-items: center;
+        }
+    }
+}

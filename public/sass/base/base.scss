@@ -1,0 +1,43 @@
+@import "./variables.scss";
+@import "./mixins.scss";
+
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+tr, td {
+    white-space: nowrap;
+}
+
+body{
+    max-width: 440px;
+    margin: auto;
+    padding: 0 15px;
+}
+
+/* Header */
+header{
+    text-align: center;
+    padding: 20px;
+    color: #000;
+}
+
+header h1{
+    @include buttonPrimary;
+}
+
+
+/* Filters */
+.filters_form{
+    display: none;
+}
+#filter_checkbox:checked ~ .filters_form{
+    display: block;
+}
