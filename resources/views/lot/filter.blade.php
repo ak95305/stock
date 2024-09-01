@@ -17,9 +17,9 @@ Filters: <input type="checkbox" id="filter_checkbox" {{ !empty($_GET) && count($
         <label for="party">Party</label>
         <select name="party" id="party">
             <option value="">Select</option>
-            <option value="1" {{ isset($_GET['party']) && $_GET['party'] == "1" ? "selected" : "" }}>1asfasdf</option>
-            <option value="2" {{ isset($_GET['party']) && $_GET['party'] == "2" ? "selected" : "" }}>1asdf</option>
-            <option value="3" {{ isset($_GET['party']) && $_GET['party'] == "3" ? "selected" : "" }}>1</option>
+                @foreach ($parties as $party)
+                    <option value="{{ $party["id"] }}" {{ @$_GET['party'] == $party["id"] ? "selected" : "" }}>{{ $party["first_name"] . " " . @$party["last_name"] }} {{ $party['company_name'] ? "(".@$party['company_name'].")" : "" }}</option>
+                @endforeach
         </select>
     </div>
     <a href="{{ route("lot.index") }}" class="btn btn-danger btn-sm mt-2">Reset</a>

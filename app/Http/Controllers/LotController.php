@@ -38,8 +38,8 @@ class LotController extends Controller
         }
         
         $listing = Lot::getListing($request, $where);
-
-        return view("lot.index", ['listing' => $listing]);
+        $parties = Party::where("status", 1)->select(["id", "company_name", "first_name", "last_name"])->get();
+        return view("lot.index", ['listing' => $listing, "parties" => $parties]);
     }
 
     public function add(Request $request)
