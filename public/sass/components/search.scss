@@ -1,0 +1,14 @@
+.search_input{
+    max-width: 400px;
+    padding: 0 20px;
+    margin: auto;
+    margin-bottom: 20px;
+
+    input{
+        text-align: center;
+
+        &:focus{
+            box-shadow: none;
+        }
+    }
+}

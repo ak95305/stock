@@ -10,6 +10,17 @@
 
 a{
     text-decoration: none;
+    color: inherit;
+}
+
+p{
+    margin-bottom: 0;
+}
+
+ul, li{
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 tr, td {
@@ -20,6 +31,7 @@ body{
     max-width: 440px;
     margin: auto;
     padding: 0 15px;
+    font-family: "Inter";
 }
 
 /* Header */
@@ -34,10 +46,71 @@ header h1{
 }
 
 
+.btn{
+    background-color: #fff;
+    color: $colorPrimary;
+    border-color: $colorPrimary;
+    font-weight: 600;
+
+    .btn-primary{
+        &:hover{
+            background-color: $colorPrimary;
+            border-color: $colorPrimary;
+        }
+    }
+}
+
 /* Filters */
 .filters_form{
     display: none;
 }
 #filter_checkbox:checked ~ .filters_form{
     display: block;
+}
+
+.holder_heading{
+    display: flex;
+    justify-content: space-between;
+    
+    .heading_title{
+        font-size: 20px;
+        font-weight: 600;
+        color: #000;
+        text-align: left;
+        margin-bottom: 20px;
+    }
+
+    .sorts_filters{
+        display: flex;
+        gap: 10px;
+
+        span{
+            display: block;
+            width: 35px;
+            height: 35px;
+            border-radius: 10px;
+            padding: 4px;
+            border: 1px solid $colorPrimary;
+            display: grid;
+            place-items: center;
+
+            svg{
+                width: 15px;
+                color: $colorPrimary;
+            }
+
+            &.sort_icon{
+                svg{
+                    transform: rotate(90deg);
+                }
+            }
+
+            &.active{
+                background-color: $colorPrimary;
+                svg{
+                    color: #fff;
+                }
+            }
+        }
+    }
 }

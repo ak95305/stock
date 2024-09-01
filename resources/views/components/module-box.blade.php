@@ -1,6 +1,6 @@
 <a href="{{ $module['url'] }}" class="module_box">
     <div class="module_img">
-        <i data-feather="layers"></i>
+        <i data-feather="{{ $module['icon'] }}"></i>
     </div>
     <div class="module_content">
         <div class="content_text">

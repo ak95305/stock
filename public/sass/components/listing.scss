@@ -1,0 +1,178 @@
+@import "./../base/variables.scss";
+@import "./../base/mixins.scss";
+
+.item_listings{
+    .accordion{
+        border: none;
+
+        .listing_item{
+            border: none;
+            margin-bottom: 10px;
+
+            .item_header{
+                border: none;
+                box-shadow: none;
+                background-color: $cardLighBlue;
+                border-radius: 15px;
+                display: flex;
+                align-items: flex-start;
+                padding: 15px;
+                margin-bottom: 0;
+
+                .header_button{
+                    background-color: unset;
+                    padding: 0;
+                    box-shadow: none;
+                    
+                    .header_title{
+                        flex-grow: 1;
+
+                        h4{
+                            .head{
+                                font-size: 14px;
+                                font-weight: 700;
+                                color: #000;
+                            }
+
+                            .value{
+                                font-size: 16px;
+                                font-weight: 600;
+                                color: #333;
+                            }
+                        }
+    
+                        p{
+                            font-size: 14px;
+                            font-weight: 400;
+                            color: #333;
+                        }
+                    }
+
+                    &:focus{
+                        border: none;
+                        box-shadow: none;
+                        outline: 0;
+                    }
+
+                    &::after{
+                        content: none;
+                    }
+                }
+
+                .header_actions{
+                    display: flex;
+                    gap: 10px;
+
+                    .action_icon{
+                        width: fit-content;
+                        padding: 4px 4px;
+                        border-radius: 10px;
+                        border: 1px solid #ddd;
+                        background-color: unset;
+                        color: #333;
+
+                        &::after{
+                            content: none;
+                        }
+
+                        svg{
+                            width: 18px;
+                        }
+                    }
+
+                    .action_menu{
+                        background-color: #fff;
+                        border-radius: 10px;
+                        padding: 0;
+                        overflow: hidden;
+                        min-width: 110px;
+                        
+                        li{
+                            a{
+                                padding: 6px 10px;
+                                font-size: 14px;
+                                font-weight: 600;
+                                display: flex;
+                                align-items: center;
+                                gap: 5px;
+
+                                svg{
+                                    width: 15px;
+
+                                    &.feather-edit-3{
+                                        color: $colorPrimary;
+                                    }
+
+                                    &.feather-trash{
+                                        color: $colorDanger;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .action_status{
+                        padding-left: 30px;
+
+                        input{
+                            margin-left: -30px;
+                            width: 22px;
+                            height: 15px;
+
+                            &:focus{
+                                box-shadow: none;
+                            }
+
+                            &:checked{
+                                background-color: $colorPrimary;
+                                border-color: $colorPrimary;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .item_body{
+                background-color: $cardLightBg;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+
+                &::before{
+                    content: "";
+                    width: 100%;
+                    background-color: $cardLightBg;
+                    display: block;
+                    height: 15px;
+                    transform: translateY(-12px);
+                    position: relative;
+                    z-index: -1;
+                }
+
+                .body_content{
+                    padding: 0 15px 15px 15px;
+                    display: flex;
+                    flex-wrap: wrap;
+
+                    .content_item{
+                        flex-basis: 50%;
+                        margin-bottom: 10px;
+
+                        .content_item_head{
+                            font-size: 12px;
+                            color: #333;
+                            font-weight: 700;
+                        }
+
+                        .content_item_value{
+                            font-size: 14px;
+                            color: #555;
+                            font-weight: 500;
+
+                            @include lineClamp(1);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

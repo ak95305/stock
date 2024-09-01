@@ -1,3 +1,5 @@
+@import "./../base/mixins.scss";
+
 .module_box{
     margin-bottom: 15px;
     border-radius: 20px;
@@ -33,10 +35,7 @@
                 font-size: 12px;
                 font-weight: 400;
                 color: #999;
-                display: -webkit-box;
-                -webkit-line-clamp: 1;
-                -webkit-box-orient: vertical;  
-                overflow: hidden;
+                @include lineClamp(1);
             }
         }
 

@@ -2,17 +2,19 @@
 
 @section("content")
 
-    <div class="filters px-3 mb-2">
-        <h2 class="text-center">Lots</h2>
+    <x-search title="Search Lot..."/>
+
+    <div class="filters mb-2">
+        <x-page-heading title="Lots" />
         @include("partials.flash_messages")
         
-        @include("lot.filter")
+        {{-- @include("lot.filter") --}}
     </div>
 
-    <div class="px-3 text-end">
+    {{-- <div class="px-3 text-end">
         <a href={{ route("lot.add") }} class="btn btn-success btn-sm">Add Lot</a>
-    </div>
-    <section class="table_listing px-3">
+    </div> --}}
+    {{-- <section class="table_listing px-3">
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
@@ -66,6 +68,10 @@
                 </tbody>
             </table>
         </div>
+    </section> --}}
+
+    <section class="item_listings">
+        <x-listing :listing="$listing" itemComponent="lot-listing-item"/>
     </section>
 
 @endsection

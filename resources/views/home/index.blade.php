@@ -3,22 +3,27 @@
         [
             "url" => route("lot.index"),
             "title" => "Lot",
-            "desc" => "Manage Lot Listing and Assing Lots"
+            "desc" => "Manage Lot Listing and Assing Lots",
+            "icon" => "layers"
         ],
         [
             "url" => route("worker.index"),
             "title" => "Worker",
-            "desc" => "Manage Worker Listing"
+            "desc" => "Manage Worker Listing",
+            "icon" => "user"
         ],
         [
             "url" => route("workerType.index"),
             "title" => "Worker Type",
-            "desc" => "Manage Worker Type Listing"
+            "desc" => "Manage Worker Type Listing",
+            "icon" => "users"
+
         ],
         [
             "url" => route("party.index"),
             "title" => "Party",
-            "desc" => "Manage Party Listing"
+            "desc" => "Manage Party Listing",
+            "icon" => "user"
         ]
     ];
 @endphp
@@ -28,9 +33,7 @@
 @section('content')
 
     <section class="home_page module_holder">
-        <div class="holder_heading">
-            Modules
-        </div>
+        <x-page-heading title="Modules" filter="{{ false }}"/>
 
         <div class="holder_board">
             
