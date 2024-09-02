@@ -8,19 +8,19 @@
                 <i data-feather="filter"></i>
             </span>
 
-            <span class="sort_icon dropdown-toggle" data-bs-toggle="dropdown" role="button">
+            <span class="sort_icon dropdown-toggle {{ request()->sort == "lots.date" ? "active" : "" }}" data-bs-toggle="dropdown" role="button">
                 <i data-feather="code"></i>
             </span>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"><i data-feather="arrow-down"></i>New to Old</a></li>
-                <li><a class="dropdown-item" href="#"><i data-feather="arrow-up"></i> Old to New</a></li>
+                <li><a class="dropdown-item" href="{{ route("lot.index", ["sort" => "lots.date", "direction" => "desc"]) }}"><i data-feather="arrow-down"></i>New to Old</a></li>
+                <li><a class="dropdown-item" href="{{ route("lot.index", ["sort" => "lots.date", "direction" => "asc"]) }}"><i data-feather="arrow-up"></i> Old to New</a></li>
             </ul>
         </div>
     @endif
 </div>
 
-
-<div class="modal fade" id="filterModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+@if(isset($filter) && $filter)
+<div class="modal fade filter_modal" id="filterModal">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="holder_heading">
@@ -28,22 +28,35 @@
                     Filters
                 </div>
             </div>
-            <div class="fitler_box">
-                <label class="form-label">Date</label>
 
-                <div class="input_box">
-                    <div class="date_input">
-                        <input type="date" class="form-control" id="">
+            <form action="" method="GET">
+                <div class="filter_holder">
+                    <div class="filter_box">
+                        <label class="form-label">From Date</label>
+                        <input type="date" class="form-control" name="from_date" value="{{ request()->from_date }}" id="">
                     </div>
-                    
-                    <div class="date_input">
-                        <input type="date" class="form-control" id="">
+                    <div class="filter_box">
+                        <label class="form-label">To Date</label>
+                        <input type="date" class="form-control" name="to_date" value="{{ request()->to_date }}" id="">
                     </div>
                 </div>
-            </div>
-
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Understood</button>
+    
+                <div class="filter_box">
+                    <label class="form-label">Party</label>
+                    <select class="form-control select2" id="id_label_multiple" multiple="multiple">
+                        <option value="">AAA</option>
+                        <option value="">AAA</option>
+                        <option value="">AAA</option>
+                        <option value="">AAA</option>
+                    </select>
+                </div>
+    
+                <div class="filter_actions">
+                    <a href="{{ route("lot.index") }}" type="button" class="btn btn-danger btn-sm">Reset</a>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+@endif

@@ -36,7 +36,7 @@ class LotController extends Controller
         {
             $where[] = "lots.party_id = '".$request->get("party")."'";
         }
-        
+
         $listing = Lot::getListing($request, $where);
         $parties = Party::where("status", 1)->select(["id", "company_name", "first_name", "last_name"])->get();
         return view("lot.index", ['listing' => $listing, "parties" => $parties]);

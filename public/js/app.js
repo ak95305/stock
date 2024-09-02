@@ -80,3 +80,8 @@ if($(".assign_lot_form").length)
 
     assignLot.init();
 }
+
+
+$(".select2").select2({
+    dropdownParent: $('.modal')
+});

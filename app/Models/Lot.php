@@ -54,7 +54,7 @@ class Lot extends Model
             }
         }
 
-        $listing->with(['party']);
+        $listing->with(['party', 'worker']);
 
         if ($page !== null && $page !== "" && $limit !== null && $limit !== "") {
             $listing->offset($offset);

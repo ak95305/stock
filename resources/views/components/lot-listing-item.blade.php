@@ -27,7 +27,7 @@
         <div class="body_content">
             <div class="content_item">
                 <div class="content_item_head">Tailor</div>
-                <div class="content_item_value">Name Here</div>
+                <div class="content_item_value">{{ implode(", ", array_column(@$item->worker->toArray(), "first_name")) }}</div>
             </div>
             <div class="content_item">
                 <div class="content_item_head">Party</div>

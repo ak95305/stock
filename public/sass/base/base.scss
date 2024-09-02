@@ -48,14 +48,27 @@ header h1{
 
 .btn{
     background-color: #fff;
-    color: $colorPrimary;
-    border-color: $colorPrimary;
     font-weight: 600;
+    
+    &.btn-primary{
+        color: $colorPrimary;
+        border-color: $colorPrimary;
 
-    .btn-primary{
         &:hover{
             background-color: $colorPrimary;
             border-color: $colorPrimary;
+            color: #fff;
+        }
+    }
+    
+    &.btn-danger{
+        color: $colorDanger;
+        border-color: $colorDanger;
+        
+        &:hover{
+            background-color: $colorDanger;
+            border-color: $colorDanger;
+            color: #fff;
         }
     }
 }
@@ -138,6 +151,53 @@ header h1{
                     }
                 }
             }
+        }
+    }
+}
+
+.filter_modal{
+    .modal-content{
+        padding: 20px;
+        
+        .filter_holder{
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+
+            .filter_box{
+                flex-basis: 50%;
+            }
+        }
+
+        .filter_box{
+            margin-bottom: 15px;
+
+            .select2{
+                display: block;
+                border: none;
+
+                .select2-selection{
+                    .select2-selection__rendered{
+                        .select2-selection__choice{
+                            border: 1px solid #999;
+                            background-color: $cardLighBlue;
+                            border-radius: 6px;
+                            font-size: 14px;
+
+                            .select2-selection__choice__remove{
+                                border: none;
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .filter_actions{
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
         }
     }
 }

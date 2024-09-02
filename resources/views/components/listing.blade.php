@@ -1,7 +1,11 @@
 <div class="accordion" id="listingItems">
 
-    @foreach ($listing as $item)
+    @forelse ($listing as $item)
         <x-dynamic-component :component="$itemComponent" key="{{ $loop->iteration }}" :item="$item"/>
-    @endforeach
+    @empty
+        <div class="empty_list">
+            No Data Found!
+        </div>
+    @endforelse
 
 </div>
