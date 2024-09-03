@@ -5,7 +5,7 @@
     <x-search title="Search Lot..."/>
 
     <div class="filters mb-2">
-        <x-page-heading title="Lots" />
+        <x-page-heading title="Lots" :filter='["view" => "lot.filter", "parties" => $parties]'/>
         @include("partials.flash_messages")
         
         {{-- @include("lot.filter") --}}

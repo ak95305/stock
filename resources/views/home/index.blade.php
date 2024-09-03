@@ -33,7 +33,7 @@
 @section('content')
 
     <section class="home_page module_holder">
-        <x-page-heading title="Modules" filter="{{ false }}"/>
+        <x-page-heading title="Modules"/>
 
         <div class="holder_board">
             

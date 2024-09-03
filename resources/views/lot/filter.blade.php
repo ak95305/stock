@@ -1,27 +1,52 @@
-Filters: <input type="checkbox" id="filter_checkbox" {{ !empty($_GET) && count($_GET) > 0 ? "checked" : "" }}>
+<div class="sorts_filters">
+    <span class="filter_icon {{ !empty(request()->except("sort", "direction")) ? "active" : "" }}" role="button" data-bs-toggle="modal" data-bs-target="#filterModal">
+        <i data-feather="filter"></i>
+    </span>
 
-<form action={{ route("lot.index") }} method="get" class="filters_form">
-    <div class="form_group mb-2">
-        <label for="search">Search</label>
-        <input type="text" id="search" name="search" value={{ isset($_GET['search']) ? $_GET['search'] : "" }}>
+    <span class="sort_icon dropdown-toggle {{ request()->sort == "lots.date" ? "active" : "" }}" data-bs-toggle="dropdown" role="button">
+        <i data-feather="code"></i>
+    </span>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(["sort" => "lots.date", "direction" => "desc"]) }}"><i data-feather="arrow-down"></i>New to Old</a></li>
+        <li><a class="dropdown-item" href="{{ request()->fullUrlWithQuery(["sort" => "lots.date", "direction" => "asc"]) }}"><i data-feather="arrow-up"></i> Old to New</a></li>
+    </ul>
+</div>
+<div class="modal fade filter_modal" id="filterModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="holder_heading">
+                <div class="heading_title">
+                    Filters
+                </div>
+            </div>
+
+            <form action="" method="GET">
+                <div class="filter_holder">
+                    <div class="filter_box">
+                        <label class="form-label">From Date</label>
+                        <input type="date" class="form-control" name="from_date" value="{{ request()->from_date }}" id="">
+                    </div>
+                    <div class="filter_box">
+                        <label class="form-label">To Date</label>
+                        <input type="date" class="form-control" name="to_date" value="{{ request()->to_date }}" id="">
+                    </div>
+                </div>
+    
+                <div class="filter_box">
+                    <label class="form-label">Party</label>
+                    <select class="form-control select2" name="party_id" id="id_label_multiple" multiple="multiple">
+                        <option value="">Select Party</option>
+                        @foreach ($parties as $party)
+                            <option value="{{ $party }}">{{ @$party->first_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+    
+                <div class="filter_actions">
+                    <a href="{{ route("lot.index") }}" type="button" class="btn btn-danger btn-sm">Reset</a>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="form_group mb-2">
-        <label for="from_date">From Date</label>
-        <input type="date" id="from_date" name="from_date" value={{ isset($_GET['from_date']) ? $_GET['from_date'] : "" }}>
-    </div>
-    <div class="form_group mb-2">
-        <label for="to_date">To Date</label>
-        <input type="date" id="to_date" name="to_date" value={{ isset($_GET['to_date']) ? $_GET['to_date'] : "" }}>
-    </div>
-    <div class="form_group mb-2">
-        <label for="party">Party</label>
-        <select name="party" id="party">
-            <option value="">Select</option>
-                @foreach ($parties as $party)
-                    <option value="{{ $party["id"] }}" {{ @$_GET['party'] == $party["id"] ? "selected" : "" }}>{{ $party["first_name"] . " " . @$party["last_name"] }} {{ $party['company_name'] ? "(".@$party['company_name'].")" : "" }}</option>
-                @endforeach
-        </select>
-    </div>
-    <a href="{{ route("lot.index") }}" class="btn btn-danger btn-sm mt-2">Reset</a>
-    <button class="btn btn-primary btn-sm mt-2" type="submit"><small>Search</small></button>
-</form>
+</div>
