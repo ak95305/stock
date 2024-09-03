@@ -34,7 +34,8 @@ class LotController extends Controller
         
         if($request->get("party"))
         {
-            $where[] = "lots.party_id = '".$request->get("party")."'";
+            $partyIds = implode(", ", $request->party);
+            $where[] = "lots.party_id IN ($partyIds)";
         }
 
         $listing = Lot::getListing($request, $where);

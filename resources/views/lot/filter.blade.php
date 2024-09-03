@@ -34,10 +34,10 @@
     
                 <div class="filter_box">
                     <label class="form-label">Party</label>
-                    <select class="form-control select2" name="party_id" id="id_label_multiple" multiple="multiple">
+                    <select class="form-control select2" name="party[]" id="id_label_multiple" multiple="multiple">
                         <option value="">Select Party</option>
                         @foreach ($parties as $party)
-                            <option value="{{ $party }}">{{ @$party->first_name }}</option>
+                            <option value="{{ $party->id }}" {{ in_array($party->id, old("party[]", request()->party ?? [])) ? "selected" : "" }}>{{ @$party->first_name }}</option>
                         @endforeach
                     </select>
                 </div>

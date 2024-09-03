@@ -16,9 +16,9 @@
                     <i data-feather="more-vertical"></i>
                 </div>
                 <ul class="action_menu dropdown-menu">
-                    <li><a class="dropdown-item" href="#"><i data-feather="info"></i> More Info</a></a></li>
-                    <li><a class="dropdown-item" href="#"><i data-feather="edit-3"></i> Edit</a></a></li>
-                    <li><a class="dropdown-item" href="#"><i data-feather="trash"></i> Delete</a></a></li>
+                    <li><a class="dropdown-item" href="{{ route("assignLot.edit", ["lotId" => @$item['id']]) }}"><i data-feather="info"></i> More Info</a></a></li>
+                    <li><a class="dropdown-item" href="{{ route("lot.edit", ["id" => @$item['id']]) }}"><i data-feather="edit-3"></i> Edit</a></a></li>
+                    <li><a class="dropdown-item" href="{{ route("lot.delete", ["id" => @$item['id']]) }}" onclick="return confirm('You Sure?')"><i data-feather="trash"></i> Delete</a></a></li>
                 </ul>
             </div>
         </div>
@@ -42,7 +42,7 @@
                 <div class="content_item_value">{{ date("M d, Y", strtotime(@$item->date)) }}</div>
             </div>
             <div class="content_item">
-                <a class="btn btn-primary btn-sm">
+                <a href="{{ route("assignLot.edit", ["lotId" => @$item['id']]) }}" class="btn btn-primary btn-sm">
                     More Info
                 </a>
             </div>
