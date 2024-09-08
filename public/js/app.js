@@ -81,7 +81,86 @@ if($(".assign_lot_form").length)
     assignLot.init();
 }
 
-
+// Select2
 $(".select2").select2({
     dropdownParent: $('.modal')
 });
+
+// Change Status
+$("body").on("click", ".change_status", function(){
+    $.ajax({
+        url: $(this).data('url'),
+        data: {_token: csrf_token(), status: $(this).is(':checked') ? "1" : "0"},
+        method: "POST",
+        success: function(resp) {
+            if(resp.status)
+            {
+                toastr["success"]("Status Changed Successfully!")
+                $(this).prop("checked", true);
+            }
+            else
+            {
+                toastr["error"]("Something's Wrong")
+            }
+        }
+    })
+})
+
+// Toastr
+toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": false,
+    "progressBar": false,
+    "positionClass": "toast-top-center",
+    "preventDuplicates": false,
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": 4000,
+    "extendedTimeOut": 0,
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut",
+}
+
+// Search
+$("body").on("keyup", "#search_box", function(){
+    let that = $(this);
+    let searchText = that.val();
+
+    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?search=' + searchText;
+    window.history.pushState({path:newurl},'',newurl);
+
+    $.ajax({
+        url: that.data("url"),
+        data: {search: searchText},
+        method: "GET",
+        success: function(resp){
+            if(resp.status)
+            {
+                $("body").find(".item_listings").html(resp.html);
+                feather.replace();
+            }
+        }
+    });
+})
+
+// Page Reacher Bottom
+if($(".item_listings").length){
+    $(window).scroll(function(){
+        const scrolledTo = window.scrollY + window.innerHeight;
+        console.log([window.scrollY + window.innerHeight, document.body.scrollHeight]);
+        if(document.body.scrollHeight <= scrolledTo)
+        {
+            getListingData();
+        }
+    })
+}
+
+function getListingData()
+{
+    let listing = $("body").find(".item_listings");
+    // let 
+}

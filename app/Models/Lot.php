@@ -32,7 +32,7 @@ class Lot extends Model
         return $record->save();
     }
 
-    public static function getListing(Request $request, $where = [])
+    public static function getListing(Request $request, $where = [], $select = [])
     {
         $orderBy = $request->get('sort') ? $request->get('sort') : 'lots.id';
         $direction = $request->get('direction') ? $request->get('direction') : 'desc';
@@ -42,6 +42,15 @@ class Lot extends Model
 
         $listing = Lot::orderBy($orderBy, $direction);
 
+        if(!empty($select))
+        {
+            $listing->select($select);
+        }
+        else
+        {
+            $listing->select(['lots.*']);
+        }
+        
         if (!empty($where))
         {
             foreach ($where as $query => $values) {

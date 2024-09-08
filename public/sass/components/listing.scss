@@ -9,6 +9,10 @@
             border: none;
             margin-bottom: 10px;
 
+            highlight{
+                background-color: rgba(255, 255, 0, 0.439);
+            }
+
             .item_header{
                 border: none;
                 box-shadow: none;
@@ -38,6 +42,10 @@
                                 font-size: 16px;
                                 font-weight: 600;
                                 color: #333;
+
+                                &.small{
+                                    font-size: 13px;
+                                }
                             }
                         }
     

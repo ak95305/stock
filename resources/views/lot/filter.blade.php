@@ -1,5 +1,5 @@
 <div class="sorts_filters">
-    <span class="filter_icon {{ !empty(request()->except("sort", "direction")) ? "active" : "" }}" role="button" data-bs-toggle="modal" data-bs-target="#filterModal">
+    <span class="filter_icon {{ !empty(request()->except("sort", "direction", "search")) ? "active" : "" }}" role="button" data-bs-toggle="modal" data-bs-target="#filterModal">
         <i data-feather="filter"></i>
     </span>
 

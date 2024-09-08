@@ -3,13 +3,13 @@
         <button class="accordion-button header_button" type="button" data-bs-toggle="collapse"
             data-bs-target="#item_{{ $key }}" aria-expanded="true" aria-controls="item_{{ $key }}">
             <div class="header_title">
-                <h4><span class="head">Lot No.:</span> <span class="value">{{ @$item['lot_no'] }}</span></h4>
-                <p>{{ @$item['pcs'] }} pcs.</p>
+                <h4><span class="head">Lot No.:</span> <span class="value">{{ @$item['lot_no'] }}</span> <span class="value small">({{ @$item['pcs'] }} pcs.)</span></h4>
+                <p>{{ @$item['info'] }}</p>
             </div>
         </button>
         <div class="header_actions">
             <div class="action_status form-check form-switch">
-                <input type="checkbox" class="status_input form-check-input">
+                <input type="checkbox" class="status_input form-check-input change_status" {{ @$item['status'] ? "checked" : "" }} data-url="{{ route("lot.changeStatus", ["id" => @$item['id']]) }}">
             </div>
             <div class="dropdown">
                 <div class="action_icon btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
@@ -23,7 +23,7 @@
             </div>
         </div>
     </h2>
-    <div id="item_{{ $key }}" class="item_body collapse" data-bs-parent="#listingItems">
+    <div id="item_{{ $key }}" class="item_body collapse {{ request()->search != "" || request()->search == "0" ? "show" : "" }}" data-bs-parent="#listingItems">
         <div class="body_content">
             <div class="content_item">
                 <div class="content_item_head">Tailor</div>

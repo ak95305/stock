@@ -1,0 +1,1 @@
+<x-listing :listing="$listing" itemComponent="lot-listing-item"/>

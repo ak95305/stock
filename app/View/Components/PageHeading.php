@@ -11,7 +11,7 @@ class PageHeading extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $title, public $filter = false)
+    public function __construct(public $title, public $addUrl = null, public $filter = false)
     {
         //
     }

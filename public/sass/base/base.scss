@@ -84,6 +84,7 @@ header h1{
 .holder_heading{
     display: flex;
     justify-content: space-between;
+
     
     .heading_title{
         font-size: 20px;
@@ -91,6 +92,17 @@ header h1{
         color: #000;
         text-align: left;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        
+        .add_btn{
+            height: 30px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     .sorts_filters{
@@ -118,7 +130,7 @@ header h1{
                 }
             }
 
-            &.active{
+            &.active, &:hover{
                 background-color: $colorPrimary;
                 svg{
                     color: #fff;
@@ -198,6 +210,38 @@ header h1{
             display: flex;
             gap: 10px;
             justify-content: flex-end;
+        }
+    }
+}
+
+
+
+// Toaster
+#toast-container{
+    top: 10px;
+
+    .toast{
+        background-image: none !important;
+        padding: 10px;
+        opacity: 1;
+        text-align: center;
+        border-radius: 15px;
+
+        &.toast-success{
+            background-color: $colorSuccess;
+        }
+        &.toast-error{
+            background-color: $colorDanger;
+        }
+        &.toast-info{
+            background-color: $colorPrimary;
+        }
+        &.toast-warning{
+            background-color: $colorWarning;
+        }
+
+        &:hover{
+            box-shadow: 0 0 12px #999999;
         }
     }
 }
